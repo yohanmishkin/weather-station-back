@@ -7,5 +7,7 @@ defmodule WeatherStationWeb.Router do
 
   scope "/api", WeatherStationWeb do
     pipe_through :api
+
+    get "/people", PersonController, :index
   end
 end

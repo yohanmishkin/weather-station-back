@@ -7,7 +7,7 @@ defmodule WeatherStationWeb.PersonController do
   action_fallback WeatherStationWeb.FallbackController
 
   def index(conn, _params) do
-    people = People.list_people()
+    people = People.get_all()
     render(conn, "index.json", people: people)
   end
 

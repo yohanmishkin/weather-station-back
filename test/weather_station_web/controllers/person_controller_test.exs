@@ -15,7 +15,7 @@ defmodule WeatherStationWeb.PersonControllerTest do
 
   describe "index" do
     test "lists all people", %{conn: conn} do
-      conn = get(conn, Routes.person_path(conn, :index))
+      conn = get(conn, "/api/people")
       assert json_response(conn, 200)["data"] == []
     end
   end
