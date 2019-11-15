@@ -2,13 +2,6 @@ defmodule WeatherStationWeb.PersonControllerTest do
   use WeatherStationWeb.ConnCase
 
   import Mox
-  # alias WeatherStation.People
-  # alias WeatherStation.People.Person
-
-  # @create_attrs %{
-  #   name: "some name",
-  #   temperature: 42
-  # }
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}

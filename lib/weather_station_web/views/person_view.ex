@@ -11,8 +11,6 @@ defmodule WeatherStationWeb.PersonView do
   end
 
   def render("person.json", %{person: person}) do
-    %{id: person.id,
-      name: person.name,
-      temperature: person.temperature}
+    %{id: person.id, name: person.name, temperature: person.temperature}
   end
 end

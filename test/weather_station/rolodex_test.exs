@@ -3,14 +3,8 @@ defmodule WeatherStation.RolodexTest do
 
   import Mox
 
-  setup do
-    set_mox_global()
-    verify_on_exit!()
-
-    on_exit(fn ->
-      set_mox_private()
-    end)
-  end
+  setup :set_mox_global
+  setup :verify_on_exit!
 
   test "gathers list of people on startup" do
     External.DockYardApiMock |> expect(:get_employees, fn -> [%{}, %{}, %{}] end)

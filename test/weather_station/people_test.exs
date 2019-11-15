@@ -3,7 +3,6 @@ defmodule WeatherStation.PeopleTest do
 
   import Mox
 
-  setup :set_mox_private
   setup :verify_on_exit!
 
   test "can get all the people from the rolodex" do

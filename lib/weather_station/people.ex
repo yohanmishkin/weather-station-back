@@ -3,8 +3,6 @@ defmodule WeatherStation.People do
   The People context.
   """
 
-  # alias WeatherStation.People.Chip
-
   @rolodex Application.get_env(:weather_station, :rolodex)
 
   @doc """
@@ -19,20 +17,4 @@ defmodule WeatherStation.People do
   def get_all() do
     @rolodex.get_people()
   end
-
-  # @doc """
-  # Gets a single chip.
-
-  # Raises `Ecto.NoResultsError` if the Chip does not exist.
-
-  # ## Examples
-
-  #     iex> get_chip!(123)
-  #     %Chip{}
-
-  #     iex> get_chip!(456)
-  #     ** (Ecto.NoResultsError)
-
-  # """
-  # def get_chip!(id), do: Repo.get!(Chip, id)
 end

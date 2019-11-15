@@ -1,7 +1,6 @@
 defmodule WeatherStation.Rolodex do
-
   @doc """
-  Gets all the people from the GenServer
+  Gets all the people and makes them available
   """
   @callback get_people() :: [%{}]
 end
@@ -9,18 +8,18 @@ end
 defmodule WeatherStation.AgentRolodex do
   use Agent
 
-  @behavior WeatherStation.Rolodex
+  @behaviour WeatherStation.Rolodex
 
   @dock_yard_api Application.get_env(:weather_station, :dock_yard_api)
 
   @doc """
-  Starts a new rolodex
+  Starts a new rolodex agent
   """
   def start_link(_opts) do
     Agent.start_link(fn -> fetch_people() end, name: __MODULE__)
   end
 
-  @impl
+  @impl WeatherStation.Rolodex
   def get_people do
     Agent.get(__MODULE__, fn people -> people end)
   end
@@ -30,7 +29,7 @@ defmodule WeatherStation.AgentRolodex do
     |> Enum.map(fn x -> json_employee_to_person(x) end)
   end
 
-  defp json_employee_to_person(json) do
+  defp json_employee_to_person(_json) do
     %{}
   end
 end
