@@ -5,6 +5,8 @@ defmodule WeatherStation.People do
 
   # alias WeatherStation.People.Chip
 
+  @rolodex Application.get_env(:weather_station, :rolodex)
+
   @doc """
   Returns the list of people.
 
@@ -14,8 +16,8 @@ defmodule WeatherStation.People do
       [%Person{}, ...]
 
   """
-  def get_all do
-    []
+  def get_all() do
+    @rolodex.get_people()
   end
 
   # @doc """
