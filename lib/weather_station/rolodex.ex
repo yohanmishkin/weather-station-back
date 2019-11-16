@@ -1,8 +1,10 @@
 defmodule WeatherStation.Rolodex do
+  alias WeatherStation.Person
+
   @doc """
   Gets all the people and makes them available
   """
-  @callback get_people() :: [%{}]
+  @callback get_people() :: [%Person{}]
 end
 
 defmodule WeatherStation.AgentRolodex do
@@ -26,10 +28,5 @@ defmodule WeatherStation.AgentRolodex do
 
   defp fetch_people do
     @dock_yard_api.get_employees()
-    |> Enum.map(fn x -> json_employee_to_person(x) end)
-  end
-
-  defp json_employee_to_person(_json) do
-    %{}
   end
 end
