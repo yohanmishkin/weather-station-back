@@ -28,5 +28,8 @@ defmodule WeatherStation.AgentRolodex do
 
   defp fetch_people do
     @dock_yard_api.get_employees()
+    |> Enum.filter(fn person ->
+      person.deactivated == false
+    end)
   end
 end

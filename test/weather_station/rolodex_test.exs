@@ -18,4 +18,17 @@ defmodule WeatherStation.RolodexTest do
 
     assert length(people) > 1
   end
+
+  test "only returns active employees" do
+    External.DockYardApiMock
+    |> expect(:get_employees, fn ->
+      [%Person{deactivated: true}, %Person{}, %Person{}]
+    end)
+
+    {:ok, _pid} = WeatherStation.AgentRolodex.start_link([])
+
+    people = WeatherStation.AgentRolodex.get_people()
+
+    assert length(people) == 2
+  end
 end

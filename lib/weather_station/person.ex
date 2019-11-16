@@ -1,3 +1,3 @@
 defmodule WeatherStation.Person do
-  defstruct [:address, :deactivated, :id, :image_url, :name]
+  defstruct [:address, :id, :image_url, :name, deactivated: false]
 end
