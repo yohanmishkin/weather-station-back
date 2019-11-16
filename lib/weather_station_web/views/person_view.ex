@@ -3,7 +3,7 @@ defmodule WeatherStationWeb.PersonView do
   alias WeatherStationWeb.PersonView
 
   def render("index.json", %{people: people}) do
-    %{data: render_many(people, PersonView, "person.json")}
+    render_many(people, PersonView, "person.json")
   end
 
   def render("show.json", %{person: person}) do
@@ -11,6 +11,6 @@ defmodule WeatherStationWeb.PersonView do
   end
 
   def render("person.json", %{person: person}) do
-    %{id: person.id, name: person.name, temperature: person.temperature}
+    %{id: person.id, name: person.name} #, temperature: person.temperature}
   end
 end
