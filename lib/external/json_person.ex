@@ -21,9 +21,9 @@ defmodule External.JsonPerson do
         else
           false
         end,
-      :id => id || UUID.uuid4(:hex) |> String.upcase,
+      :id => id || String.upcase(UUID.uuid4(:hex)),
       :image_url => avatar_full,
-      :name => "#{first_name} #{last_name}",
+      :name => "#{first_name} #{last_name}"
     }
   end
 end

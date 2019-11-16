@@ -11,6 +11,6 @@ defmodule WeatherStation.PeopleTest do
     WeatherStation.RolodexMock
     |> expect(:get_people, fn -> [person, person, person] end)
 
-    assert WeatherStation.People.get_all() |> length() == 3
+    assert length(WeatherStation.People.get_all()) == 3
   end
 end

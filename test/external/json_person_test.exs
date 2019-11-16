@@ -11,7 +11,7 @@ defmodule External.JsonPersonTest do
         "avatar-full" => "www.picture.com/1.jpg",
         "first-name" => "Charles",
         "deactivated-at" => "2016-02-01T14:10:39.000000",
-        "last-name" => "Jack",
+        "last-name" => "Jack"
       }
     }
 

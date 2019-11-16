@@ -12,9 +12,9 @@ defmodule WeatherStation.RolodexTest do
     External.DockYardApiMock
     |> expect(:get_employees, fn -> [%Person{}, %Person{}, %Person{}] end)
 
-    {:ok, _pid} = WeatherStation.AgentRolodex.start_link([])
+    {:ok, _pid} = WeatherStation.Rolodex.Employees.start_link([])
 
-    [%Person{} | _] = people = WeatherStation.AgentRolodex.get_people()
+    [%Person{} | _] = people = WeatherStation.Rolodex.Employees.get_people()
 
     assert length(people) > 1
   end
@@ -25,9 +25,9 @@ defmodule WeatherStation.RolodexTest do
       [%Person{deactivated: true}, %Person{}, %Person{}]
     end)
 
-    {:ok, _pid} = WeatherStation.AgentRolodex.start_link([])
+    {:ok, _pid} = WeatherStation.Rolodex.Employees.start_link([])
 
-    people = WeatherStation.AgentRolodex.get_people()
+    people = WeatherStation.Rolodex.Employees.get_people()
 
     assert length(people) == 2
   end
