@@ -12,7 +12,7 @@ defmodule WeatherStationWeb.PersonController do
   end
 
   def show(conn, %{"id" => id}) do
-    # person = People.get!(id)
-    render(conn, "show.json", person: %Person{:id => id})
+    person = People.get!(id)
+    render(conn, "show.json", person: person)
   end
 end

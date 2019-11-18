@@ -21,15 +21,18 @@ defmodule WeatherStationWeb.PersonControllerTest do
   end
 
   describe "GET /api/people/:id" do
-    test "returns a person with forecasts", %{conn: conn} do
-      person = %Person{:id => "Person1234"}
+    test "gets a person", %{conn: conn} do
+      person = %Person{:id => "Person1234", :name => "Jik jak"}
 
       WeatherStation.RolodexMock
       |> expect(:get_people, fn -> [person] end)
 
       conn = get(conn, "/api/people/#{person.id}")
 
-      assert json_response(conn, 200) == %{"id" => person.id, "name" => person.name}
+      assert json_response(conn, 200) == %{
+               "id" => person.id,
+               "name" => person.name
+             }
     end
   end
 end
