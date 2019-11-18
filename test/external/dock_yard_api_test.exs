@@ -5,7 +5,7 @@ defmodule External.DockYardApi.HttpTest do
 
   @moduletag :external
 
-  describe "dockyard api client" do
+  describe "dockyard api" do
     External.DockYardApi.Http.start()
 
     test "fetches list of employees" do

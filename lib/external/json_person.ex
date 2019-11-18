@@ -24,7 +24,7 @@ defmodule External.JsonPerson do
       :image_url => avatar_full,
       :location =>
         if location do
-          %{:lat => location.lat, :long => location.lng}
+          %{:lat => location["lat"], :long => location["lng"]}
         end,
       :name => "#{first_name} #{last_name}"
     }
