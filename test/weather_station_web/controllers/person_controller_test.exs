@@ -3,6 +3,8 @@ defmodule WeatherStationWeb.PersonControllerTest do
 
   import Mox
 
+  alias WeatherStation.Person
+
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
@@ -18,16 +20,16 @@ defmodule WeatherStationWeb.PersonControllerTest do
     end
   end
 
-  # describe "GET /api/people/:id" do
-  #   test "returns a person with forecasts", %{conn: conn} do
-  #     person_a = %Person{}
+  describe "GET /api/people/:id" do
+    test "returns a person with forecasts", %{conn: conn} do
+      person = %Person{:id => "Person1234"}
 
-  #     WeatherStation.RolodexMock
-  #     |> expect(:get_people, fn -> [] end)
+      WeatherStation.RolodexMock
+      |> expect(:get_people, fn -> [person] end)
 
-  #     conn = get(conn, "/api/people/#{person_a.id}")
+      conn = get(conn, "/api/people/#{person.id}")
 
-  #     assert json_response(conn, 200)["data"] == []
-  #   end
-  # end
+      assert json_response(conn, 200) == %{"id" => person.id, "name" => person.name}
+    end
+  end
 end

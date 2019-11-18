@@ -9,5 +9,6 @@ defmodule WeatherStationWeb.Router do
     pipe_through :api
 
     get "/people", PersonController, :index
+    get "/people/:id", PersonController, :show
   end
 end
