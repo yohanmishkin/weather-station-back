@@ -7,19 +7,36 @@ defmodule External.JsonPersonTest do
     json = %{
       "id" => "yig-yag",
       "attributes" => %{
-        "address" => "12 Candy Lane",
         "avatar-full" => "www.picture.com/1.jpg",
         "first-name" => "Charles",
         "deactivated-at" => "2016-02-01T14:10:39.000000",
+        "location" => %{lat: 123.4, lng: 12.32},
         "last-name" => "Jack"
       }
     }
 
     %Person{} = person = External.JsonPerson.translate(json)
 
-    assert person.address == "12 Candy Lane"
+    assert person.location == %{lat: 123.4, long: 12.32}
     assert person.deactivated == true
     assert person.image_url == "www.picture.com/1.jpg"
     assert person.name == "Charles Jack"
+  end
+
+  test "handles people without locations" do
+    json = %{
+      "id" => "no-location",
+      "attributes" => %{
+        "location" => nil,
+        "avatar-full" => nil,
+        "first-name" => nil,
+        "deactivated-at" => nil,
+        "last-name" => nil
+      }
+    }
+
+    person = External.JsonPerson.translate(json)
+
+    assert person.location == nil
   end
 end
