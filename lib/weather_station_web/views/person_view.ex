@@ -13,6 +13,7 @@ defmodule WeatherStationWeb.PersonView do
   def render("person.json", %{person: person}) do
     %{
       id: person.id,
+      imageUrl: person.image_url,
       name: person.name,
       forecasts:
         Enum.map(person.forecasts, fn forecast ->

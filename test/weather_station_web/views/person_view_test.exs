@@ -9,6 +9,7 @@ defmodule WeatherStationWeb.PersonViewTest do
   test "renders person with forecasts" do
     person = %Person{
       :id => "person1234",
+      :image_url => "www.picture.com/1.jpg",
       :name => "nancy",
       :deactivated => false,
       :location => %{lat: 123, long: 456},
@@ -17,6 +18,7 @@ defmodule WeatherStationWeb.PersonViewTest do
 
     assert render(WeatherStationWeb.PersonView, "show.json", %{person: person}) == %{
              :id => "person1234",
+             :imageUrl => "www.picture.com/1.jpg",
              :name => "nancy",
              :forecasts => [
                %{shortDescription: "Sunny"},

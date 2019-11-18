@@ -38,6 +38,7 @@ defmodule WeatherStationWeb.PersonControllerTest do
 
       assert json_response(conn, 200) == %{
                "id" => person.id,
+               "imageUrl" => nil,
                "name" => person.name,
                "forecasts" => [%{"shortDescription" => "blah blah blah"}]
              }

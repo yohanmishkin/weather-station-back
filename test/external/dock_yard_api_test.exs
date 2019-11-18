@@ -11,9 +11,10 @@ defmodule External.DockYardApi.HttpTest do
     test "fetches list of employees" do
       employees = External.DockYardApi.Http.get_employees()
 
-      [%Person{} | _] = employees
+      [person = %Person{} | _] = employees
 
       assert length(employees) > 1
+      assert person.image_url != nil
     end
   end
 end
