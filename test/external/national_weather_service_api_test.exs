@@ -11,9 +11,10 @@ defmodule External.NationalWeatherServiceApi.HttpTest do
     test "fetches forecasts for geo-coordinates" do
       forecasts = External.NationalWeatherServiceApi.get_forecasts(33.6845673, -117.8265049)
 
-      [%{} | _] = forecasts
+      [forecast = %{} | _] = forecasts
 
       assert length(forecasts) > 1
+      assert forecast.short_description != nil
     end
   end
 end
