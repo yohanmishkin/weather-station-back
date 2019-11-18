@@ -32,13 +32,14 @@ defmodule WeatherStationWeb.PersonControllerTest do
       |> expect(:get_people, fn -> [person] end)
 
       WeatherStation.WeatherApiMock
-      |> expect(:get_forecasts, fn _lat, _long -> [%{short_description: 'blah blah blah'}] end)
+      |> expect(:get_forecasts, fn _lat, _long -> [%{short_description: "blah blah blah"}] end)
 
       conn = get(conn, "/api/people/#{person.id}")
 
       assert json_response(conn, 200) == %{
                "id" => person.id,
-               "name" => person.name
+               "name" => person.name,
+               "forecasts" => [%{"shortDescription" => "blah blah blah"}]
              }
     end
   end
