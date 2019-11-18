@@ -4,6 +4,7 @@ defmodule WeatherStation.People do
   """
 
   @rolodex Application.get_env(:weather_station, :rolodex)
+  @weather_api Application.get_env(:weather_station, :weather_api)
 
   alias WeatherStation.Person
 
@@ -36,7 +37,14 @@ defmodule WeatherStation.People do
 
   """
   def get!(id) do
-    @rolodex.get_people()
-    |> Enum.find(fn person -> person.id == id end)
+    person =
+      @rolodex.get_people()
+      |> Enum.find(fn person -> person.id == id end)
+
+    Map.put(
+      person,
+      :forecasts,
+      @weather_api.get_forecasts(person.location.lat, person.location.long)
+    )
   end
 end

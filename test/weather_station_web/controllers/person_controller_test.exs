@@ -22,10 +22,17 @@ defmodule WeatherStationWeb.PersonControllerTest do
 
   describe "GET /api/people/:id" do
     test "gets a person", %{conn: conn} do
-      person = %Person{:id => "Person1234", :name => "Jik jak"}
+      person = %Person{
+        :id => "Person1234",
+        :location => %{lat: 1234, long: 5678},
+        :name => "Jik jak"
+      }
 
       WeatherStation.RolodexMock
       |> expect(:get_people, fn -> [person] end)
+
+      WeatherStation.WeatherApiMock
+      |> expect(:get_forecasts, fn _lat, _long -> [%{short_description: 'blah blah blah'}] end)
 
       conn = get(conn, "/api/people/#{person.id}")
 
