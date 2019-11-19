@@ -22,6 +22,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :weather_station, :dock_yard_api, External.DockYardApi.Http
+config :weather_station, :weather_api, External.NationalWeatherServiceApi
+config :weather_station, :rolodex, WeatherStation.Rolodex.Employees
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

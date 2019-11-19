@@ -14,7 +14,6 @@ defmodule External.DockYardApi.HttpTest do
       [person = %Person{} | _] = employees
 
       assert length(employees) > 1
-      assert person.image_url != nil
     end
   end
 end
