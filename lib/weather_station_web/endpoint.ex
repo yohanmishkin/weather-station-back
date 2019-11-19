@@ -40,5 +40,7 @@ defmodule WeatherStationWeb.Endpoint do
     key: "_weather_station_key",
     signing_salt: "KWztemYn"
 
+  plug Corsica, origins: "http://weatherstation.xyz"
+
   plug WeatherStationWeb.Router
 end
