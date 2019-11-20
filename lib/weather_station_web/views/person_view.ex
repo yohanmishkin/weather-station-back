@@ -17,7 +17,7 @@ defmodule WeatherStationWeb.PersonView do
       name: person.name,
       forecasts:
         Enum.map(person.forecasts, fn forecast ->
-          %{:shortDescription => forecast.short_description}
+          %{:period => forecast.period, :shortDescription => forecast.short_description}
         end)
     }
   end
