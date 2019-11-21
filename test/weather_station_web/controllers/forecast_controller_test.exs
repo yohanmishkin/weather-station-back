@@ -13,20 +13,21 @@ defmodule WeatherStationWeb.ForecastControllerTest do
     test "gets a list of forecasts", %{conn: conn} do
       lat = 123.456
       long = 456.123
-      # person = %Person{
-      #   :id => "Person1234",
-      #   :location => %{lat: 1234, long: 5678},
-      #   :name => "Jik jak"
-      # }
 
       WeatherStation.WeatherApiMock
       |> expect(:get_forecasts, fn _lat, _long ->
-        [%{period: "Sunday", short_description: "blah blah blah"}]
+        [
+          %{period: "Monday", short_description: "blah blah blah"},
+          %{period: "Tuesday", short_description: "blah blah blah"},
+          %{period: "Sunday", short_description: "blah blah blah"}
+        ]
       end)
 
-      conn = get(conn, "/api/forecast?lat#{lat}&long=#{long}")
+      conn = get(conn, "/api/forecast?lat=#{lat}&long=#{long}")
 
-      assert json_response(conn, 200) == %{}
+      response = json_response(conn, 200)
+
+      assert length(response) == 3
       #          "id" => person.id,
       #          "imageUrl" => nil,
       #          "name" => person.name,
