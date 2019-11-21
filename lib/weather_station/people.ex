@@ -41,10 +41,10 @@ defmodule WeatherStation.People do
       @rolodex.get_people()
       |> Enum.find(fn person -> person.id == id end)
 
-    Map.put(
-      person,
-      :forecasts,
-      @weather_api.get_forecasts(person.location.lat, person.location.long)
-    )
+    # Map.put(
+    #   person,
+    #   :forecasts,
+    #   @weather_api.get_forecasts(person.location.lat, person.location.long)
+    # )
   end
 end

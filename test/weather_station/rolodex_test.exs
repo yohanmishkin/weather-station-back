@@ -38,9 +38,9 @@ defmodule WeatherStation.RolodexTest do
     External.DockYardApiMock
     |> expect(:get_employees, fn ->
       [
-        create_person(%{location: %{lat: 123, long: 456}}),
-        create_person(%{location: nil}),
-        create_person(%{location: nil})
+        create_person(%{lat: 123, long: 456}),
+        create_person(%{lat: nil}),
+        create_person(%{long: nil})
       ]
     end)
 
@@ -57,7 +57,8 @@ defmodule WeatherStation.RolodexTest do
         :id => "person1234",
         :name => "nancy",
         :deactivated => false,
-        :location => %{lat: 123, long: 456}
+        :lat => 456,
+        :long => 123
       },
       attrs
     )

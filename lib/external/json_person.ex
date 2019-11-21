@@ -22,10 +22,8 @@ defmodule External.JsonPerson do
         end,
       :id => id || String.upcase(UUID.uuid4(:hex)),
       :image_url => avatar_full,
-      :location =>
-        if location do
-          %{:lat => location["lat"], :long => location["lng"]}
-        end,
+      :lat => location["lat"], 
+      :long => location["lng"],
       :name => "#{first_name} #{last_name}"
     }
   end

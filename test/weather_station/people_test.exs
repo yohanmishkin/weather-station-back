@@ -18,24 +18,16 @@ defmodule WeatherStation.PeopleTest do
     assert length(people) == 3
   end
 
-  test "can get a person with forecasts" do
+  test "can get a person" do
     location = %{lat: 1234, long: 5678}
 
     WeatherStation.RolodexMock
     |> expect(:get_people, fn ->
-      [%Person{id: "yipyap", name: "some name", location: location}]
-    end)
-
-    WeatherStation.WeatherApiMock
-    |> expect(:get_forecasts, fn lat, long ->
-      assert lat == location.lat
-      assert long == location.long
-
-      [%{short_description: "blah blah blah"}]
+      [%Person{id: "yipyap", name: "some name", lat: location.lat, long: location.long}]
     end)
 
     person = WeatherStation.People.get!("yipyap")
 
-    %Person{:id => "yipyap", :forecasts => [%{short_description: "blah blah blah"}]} = person
+    %Person{:id => "yipyap", :lat => 1234, :long => 5678} = person
   end
 end

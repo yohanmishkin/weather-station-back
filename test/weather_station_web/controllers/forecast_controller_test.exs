@@ -3,8 +3,6 @@ defmodule WeatherStationWeb.ForecastControllerTest do
 
   import Mox
 
-  # alias WeatherStation.Person
-
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
@@ -28,11 +26,6 @@ defmodule WeatherStationWeb.ForecastControllerTest do
       response = json_response(conn, 200)
 
       assert length(response) == 3
-      #          "id" => person.id,
-      #          "imageUrl" => nil,
-      #          "name" => person.name,
-      #          "forecasts" => [%{"period" => "Sunday", "shortDescription" => "blah blah blah"}]
-      #        }
     end
   end
 end
