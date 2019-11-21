@@ -19,6 +19,10 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
 
+AGENT TEST DEBUGGING
+https://elixir-lang.org/getting-started/mix-otp/agent.html
+https://hexdocs.pm/elixir/Agent.html#stop/3
+https://elixirforum.com/t/designing-an-agent-with-side-effects-on-start-link/25576/12
 
 Web
   PeopleController
@@ -55,3 +59,5 @@ Application
 RolodexGenServer
   start_link()
     fetch_people
+
+

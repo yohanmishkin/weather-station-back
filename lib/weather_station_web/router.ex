@@ -10,5 +10,6 @@ defmodule WeatherStationWeb.Router do
 
     get "/people", PersonController, :index
     get "/people/:id", PersonController, :show
+    get "/forecast", ForecastController, :index
   end
 end
