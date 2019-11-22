@@ -1,14 +1,12 @@
-defmodule External.NationalWeatherServiceApi do
-  # alias WeatherStation.Person
-  @behaviour WeatherStation.WeatherApi
-
+defmodule External.NationalWeatherService.Api do
   use HTTPoison.Base
 
-  alias External.JsonForecast
-  alias External.JsonWeather
-  alias WeatherStation.WeatherApi
+  alias External.NationalWeatherService.JsonForecast
+  alias External.NationalWeatherService.JsonWeather
 
-  @impl WeatherApi
+  @behaviour WeatherStation.Weather.Api
+
+  @impl WeatherStation.Weather.Api
   def get_forecasts(lat, long) do
     #
     #   National Weather Service API likes precision <= 4
@@ -31,7 +29,7 @@ defmodule External.NationalWeatherServiceApi do
     |> Enum.map(fn forecast -> JsonForecast.translate(forecast) end)
   end
 
-  @impl WeatherApi
+  @impl WeatherStation.Weather.Api
   def get_current_weather(lat, long) do
     trimmed_lat = Float.round(lat, 4)
     trimmed_long = Float.round(long, 4)

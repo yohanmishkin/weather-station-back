@@ -3,7 +3,7 @@ defmodule WeatherStationWeb.PersonControllerTest do
 
   import Mox
 
-  alias WeatherStation.Person
+  alias WeatherStation.People.Person
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -11,7 +11,7 @@ defmodule WeatherStationWeb.PersonControllerTest do
 
   describe "GET /api/people" do
     test "lists all people", %{conn: conn} do
-      WeatherStation.RolodexMock
+      WeatherStation.People.RolodexMock
       |> expect(:get_people, fn -> [] end)
 
       conn = get(conn, "/api/people")
@@ -29,7 +29,7 @@ defmodule WeatherStationWeb.PersonControllerTest do
         :name => "Jik jak"
       }
 
-      WeatherStation.RolodexMock
+      WeatherStation.People.RolodexMock
       |> expect(:get_people, fn -> [person] end)
 
       conn = get(conn, "/api/people/#{person.id}")

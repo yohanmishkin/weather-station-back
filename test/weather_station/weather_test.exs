@@ -3,7 +3,7 @@
 
 #   import Mox
 
-#   alias WeatherStation.Person
+#   alias WeatherStation.People.Person
 
 #   setup :verify_on_exit!
 # end

@@ -1,4 +1,4 @@
-defmodule External.JsonForecast do
+defmodule External.NationalWeatherService.JsonForecast do
   def translate(json) do
     %{"name" => period, "shortForecast" => short_description} = json
 

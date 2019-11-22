@@ -1,7 +1,8 @@
-defmodule External.JsonPersonTest do
+defmodule External.DockYard.JsonPersonTest do
   use ExUnit.Case, async: true
 
-  alias WeatherStation.Person
+  alias WeatherStation.People.Person
+  alias External.DockYard.JsonPerson
 
   test "translates json to people" do
     json = %{
@@ -15,7 +16,7 @@ defmodule External.JsonPersonTest do
       }
     }
 
-    %Person{} = person = External.JsonPerson.translate(json)
+    %Person{} = person = JsonPerson.translate(json)
 
     assert person.lat == 123.4
     assert person.long == 12.32
@@ -36,7 +37,7 @@ defmodule External.JsonPersonTest do
       }
     }
 
-    person = External.JsonPerson.translate(json)
+    person = JsonPerson.translate(json)
 
     assert person.lat == nil
   end

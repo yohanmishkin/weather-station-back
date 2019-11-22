@@ -12,7 +12,7 @@ defmodule WeatherStationWeb.WeatherControllerTest do
       lat = 123.456
       long = 456.123
 
-      WeatherStation.WeatherApiMock
+      WeatherStation.Weather.ApiMock
       |> expect(:get_current_weather, fn _lat, _long ->
         %{type: "rain_showers", temperature: 78.0}
       end)

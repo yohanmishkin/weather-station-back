@@ -3,8 +3,6 @@ defmodule WeatherStationWeb.ForecastViewTest do
 
   import Phoenix.View
 
-  alias WeatherStation.Person
-
   test "renders forecasts" do
     forecast = %{:period => "nancy", :short_description => "www.picture.com/1.jpg"}
 

@@ -4,9 +4,8 @@ defmodule WeatherStation.People do
   """
 
   @rolodex Application.get_env(:weather_station, :rolodex)
-  @weather_api Application.get_env(:weather_station, :weather_api)
 
-  alias WeatherStation.Person
+  alias WeatherStation.People.Person
 
   @doc """
   Returns the list of people.
@@ -25,26 +24,19 @@ defmodule WeatherStation.People do
   @doc """
   Gets a single person.
 
-  Raises `Ecto.NoResultsError` if the Person does not exist.
+  Raises `???` if the Person does not exist.
 
   ## Examples
 
       iex> get!(123)
       %Person{}
 
-      iex> get!(456)
-      ** (Ecto.NoResultsError)
+      iex> get!(<does-not-exist>)
+      ** (?)
 
   """
   def get!(id) do
-    person =
-      @rolodex.get_people()
-      |> Enum.find(fn person -> person.id == id end)
-
-    # Map.put(
-    #   person,
-    #   :forecasts,
-    #   @weather_api.get_forecasts(person.location.lat, person.location.long)
-    # )
+    @rolodex.get_people()
+    |> Enum.find(fn person -> person.id == id end)
   end
 end

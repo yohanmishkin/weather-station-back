@@ -12,7 +12,7 @@ defmodule WeatherStationWeb.ForecastControllerTest do
       lat = 123.456
       long = 456.123
 
-      WeatherStation.WeatherApiMock
+      WeatherStation.Weather.ApiMock
       |> expect(:get_forecasts, fn _lat, _long ->
         [
           %{period: "Monday", short_description: "blah blah blah"},

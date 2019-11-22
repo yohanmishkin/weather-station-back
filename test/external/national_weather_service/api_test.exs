@@ -1,15 +1,13 @@
-defmodule External.NationalWeatherServiceApi.HttpTest do
+defmodule External.NationalWeatherService.ApiTest do
   use ExUnit.Case, async: true
-
-  alias WeatherStation.Person
 
   @moduletag :external
 
   describe "national weather service api" do
-    External.NationalWeatherServiceApi.start()
+    External.NationalWeatherService.Api.start()
 
     test "fetches forecasts for geo-coordinates" do
-      forecasts = External.NationalWeatherServiceApi.get_forecasts(33.6845673, -117.8265049)
+      forecasts = External.NationalWeatherService.Api.get_forecasts(39.7456,-97.0892)
 
       [forecast = %{} | _] = forecasts
 
@@ -18,7 +16,7 @@ defmodule External.NationalWeatherServiceApi.HttpTest do
     end
 
     test "fetches weather for geo-coordinates" do
-      weather = External.NationalWeatherServiceApi.get_current_weather(33.6845673, -117.8265049)
+      weather = External.NationalWeatherService.Api.get_current_weather(33.6845673, -117.8265049)
 
       assert weather.type == "rain_showers"
       assert weather.temperature == 17.77777777777783

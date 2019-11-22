@@ -1,4 +1,4 @@
-defmodule External.JsonWeather do
+defmodule External.NationalWeatherService.JsonWeather do
   def translate(temperature_arr, type_arr) do
     %{"value" => temperature} =
       Enum.filter(Enum.sort_by(temperature_arr, & &1["validTime"]), &(!is_nil(&1["value"])))

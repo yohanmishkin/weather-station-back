@@ -1,5 +1,5 @@
-defmodule External.DockYardApi do
-  alias WeatherStation.Person
+defmodule External.DockYard.Api do
+  alias WeatherStation.People.Person
 
   @doc """
   Gets all the employees from DockYard api
@@ -9,11 +9,11 @@ defmodule External.DockYardApi do
   defmodule Http do
     use HTTPoison.Base
 
-    alias External.JsonPerson
+    alias External.DockYard.JsonPerson
 
-    @behaviour DockYardApi
+    @behaviour Api
 
-    @impl DockYardApi
+    @impl Api
     def get_employees do
       response = HTTPoison.get!("https://dockyard.com/api/employees")
 

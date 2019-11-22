@@ -1,5 +1,5 @@
-defmodule External.JsonPerson do
-  alias WeatherStation.Person
+defmodule External.DockYard.JsonPerson do
+  alias WeatherStation.People.Person
 
   def translate(json) do
     %{

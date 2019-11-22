@@ -3,14 +3,14 @@ defmodule WeatherStation.PeopleTest do
 
   import Mox
 
-  alias WeatherStation.Person
+  alias WeatherStation.People.Person
 
   setup :verify_on_exit!
 
   test "can get all the people from the rolodex" do
     person = %{name: "some name", temperature: 42}
 
-    WeatherStation.RolodexMock
+    WeatherStation.People.RolodexMock
     |> expect(:get_people, fn -> [person, person, person] end)
 
     people = WeatherStation.People.get_all()
@@ -21,7 +21,7 @@ defmodule WeatherStation.PeopleTest do
   test "can get a person" do
     location = %{lat: 1234, long: 5678}
 
-    WeatherStation.RolodexMock
+    WeatherStation.People.RolodexMock
     |> expect(:get_people, fn ->
       [%Person{id: "yipyap", name: "some name", lat: location.lat, long: location.long}]
     end)

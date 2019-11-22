@@ -3,7 +3,7 @@ defmodule WeatherStationWeb.PersonViewTest do
 
   import Phoenix.View
 
-  alias WeatherStation.Person
+  alias WeatherStation.People.Person
 
   test "renders person with forecasts" do
     person = %Person{
