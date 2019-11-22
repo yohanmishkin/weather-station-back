@@ -7,6 +7,6 @@ defmodule WeatherStationWeb.WeatherView do
   end
 
   def render("weather.json", %{weather: weather}) do
-    %{type: weather.type, temperature: weather.temperature}
+    weather
   end
 end
