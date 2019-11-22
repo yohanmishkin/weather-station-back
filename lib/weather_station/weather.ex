@@ -24,7 +24,7 @@ defmodule WeatherStation.Weather do
   ## Examples
 
       iex> get_current_weather(81.34, 34.81)
-      [%{}, ...]
+      %{}
 
   """
   def get_current_weather(lat, long) do

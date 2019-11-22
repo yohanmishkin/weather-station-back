@@ -16,5 +16,12 @@ defmodule External.NationalWeatherServiceApi.HttpTest do
       assert length(forecasts) > 1
       assert forecast.short_description != nil
     end
+
+    test "fetches weather for geo-coordinates" do
+      weather = External.NationalWeatherServiceApi.get_current_weather(33.6845673, -117.8265049)
+
+      assert weather.type == "rain_showers"
+      assert weather.temperature == 17.77777777777783
+    end
   end
 end
