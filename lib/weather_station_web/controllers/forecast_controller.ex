@@ -6,10 +6,13 @@ defmodule WeatherStationWeb.ForecastController do
   action_fallback WeatherStationWeb.FallbackController
 
   def index(conn, params) do
-    %{"lat" => lat, "long" => long} = params
+    %{"lat" => lat_param, "long" => long_param} = params
 
-    forecast = Weather.get_forecasts(lat, long)
+    {lat, _} = Float.parse(lat_param)
+    {long, _} = Float.parse(long_param)
 
-    render(conn, "index.json", forecast: forecast)
+    forecasts = Weather.get_forecasts(lat, long)
+
+    render(conn, "index.json", forecasts: forecasts)
   end
 end

@@ -12,7 +12,7 @@ defmodule WeatherStationWeb.PersonViewTest do
       :image_url => "www.picture.com/1.jpg",
       :name => "nancy",
       :deactivated => false,
-      :lat => 123, 
+      :lat => 123,
       :long => 456
     }
 
@@ -20,7 +20,7 @@ defmodule WeatherStationWeb.PersonViewTest do
              :id => "person1234",
              :imageUrl => "www.picture.com/1.jpg",
              :name => "nancy",
-             :lat => 123, 
+             :lat => 123,
              :long => 456
            }
   end

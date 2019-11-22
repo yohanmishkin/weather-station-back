@@ -11,7 +11,7 @@ defmodule WeatherStation.Weather do
   ## Examples
 
       iex> get_forecasts(81.34, 34.81)
-      [%Person{}, ...]
+      [%{}, ...]
 
   """
   def get_forecasts(lat, long) do

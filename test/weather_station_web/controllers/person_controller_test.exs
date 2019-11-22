@@ -38,7 +38,7 @@ defmodule WeatherStationWeb.PersonControllerTest do
                "id" => person.id,
                "imageUrl" => nil,
                "name" => person.name,
-               "lat" => 1234, 
+               "lat" => 1234,
                "long" => 5678
              }
     end

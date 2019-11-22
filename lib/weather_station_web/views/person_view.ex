@@ -16,7 +16,7 @@ defmodule WeatherStationWeb.PersonView do
       imageUrl: person.image_url,
       name: person.name,
       lat: person.lat,
-      long: person.long,
+      long: person.long
     }
   end
 end

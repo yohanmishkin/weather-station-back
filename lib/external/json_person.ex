@@ -22,7 +22,7 @@ defmodule External.JsonPerson do
         end,
       :id => id || String.upcase(UUID.uuid4(:hex)),
       :image_url => avatar_full,
-      :lat => location["lat"], 
+      :lat => location["lat"],
       :long => location["lng"],
       :name => "#{first_name} #{last_name}"
     }
