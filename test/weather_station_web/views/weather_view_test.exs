@@ -8,6 +8,14 @@ defmodule WeatherStationWeb.WeatherViewTest do
 
     payload = render(WeatherStationWeb.WeatherView, "index.json", weather: weather)
 
-    assert payload == %{:type => "sunny", :temperature => 3 }
+    assert payload == %{:type => "sunny", :temperature => 3}
+  end
+
+  test "renders integer temperatures" do
+    weather = %{:type => "sunny", :temperature => 5}
+
+    payload = render(WeatherStationWeb.WeatherView, "index.json", weather: weather)
+
+    assert payload == %{:type => "sunny", :temperature => 5}
   end
 end

@@ -7,6 +7,15 @@ defmodule WeatherStationWeb.WeatherView do
   end
 
   def render("weather.json", %{weather: weather}) do
-    %{ :type => weather.type, :temperature => Float.round(weather.temperature, 0)}
+    %{
+      :type => weather.type,
+      :temperature =>
+        if is_float(weather.temperature) do
+          Float.round(weather.temperature, 0)
+        else
+          {temp, _} = Integer.parse("#{weather.temperature}")
+          temp
+        end
+    }
   end
 end
