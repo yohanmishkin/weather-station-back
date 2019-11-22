@@ -5,11 +5,14 @@ defmodule External.JsonWeather do
       |> List.first()
 
     %{:weather => type} =
-      Enum.filter(
-        Enum.map(type_arr, fn x ->
-          %{:validTime => x["validTime"], :weather => List.first(x["value"])["weather"]}
-        end),
-        fn x -> !is_nil(x.weather) end
+      Enum.sort_by(
+        Enum.filter(
+          Enum.map(type_arr, fn x ->
+            %{:valid_time => x["validTime"], :weather => List.first(x["value"])["weather"]}
+          end),
+          fn x -> !is_nil(x.weather) end
+        ),
+        & &1.valid_time
       )
       |> List.first()
 

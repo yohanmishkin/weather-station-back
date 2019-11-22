@@ -7,6 +7,6 @@ defmodule WeatherStationWeb.WeatherView do
   end
 
   def render("weather.json", %{weather: weather}) do
-    weather
+    %{ :type => weather.type, :temperature => Float.round(weather.temperature, 0)}
   end
 end

@@ -14,7 +14,7 @@ defmodule WeatherStationWeb.WeatherControllerTest do
 
       WeatherStation.WeatherApiMock
       |> expect(:get_current_weather, fn _lat, _long ->
-        %{type: "rain_showers", temperature: 78}
+        %{type: "rain_showers", temperature: 78.0}
       end)
 
       conn = get(conn, "/api/weather?lat=#{lat}&long=#{long}")
