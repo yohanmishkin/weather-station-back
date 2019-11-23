@@ -37,13 +37,10 @@ defmodule External.NationalWeatherService.Api do
     location_details =
       HTTPoison.get!("https://api.weather.gov/points/#{trimmed_lat},#{trimmed_long}")
 
-    weather_url = Jason.decode!(location_details.body)["properties"]["forecastGridData"]
+    weather_url = Jason.decode!(location_details.body)["properties"]["forecastHourly"]
 
     weather_response = HTTPoison.get!(weather_url)
 
-    JsonWeather.translate(
-      Jason.decode!(weather_response.body)["properties"]["temperature"]["values"],
-      Jason.decode!(weather_response.body)["properties"]["weather"]["values"]
-    )
+    JsonWeather.translate(Jason.decode!(weather_response.body)["properties"]["periods"] |> List.first())
   end
 end

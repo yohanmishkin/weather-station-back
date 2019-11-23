@@ -18,8 +18,8 @@ defmodule External.NationalWeatherService.ApiTest do
     test "fetches weather for geo-coordinates" do
       weather = External.NationalWeatherService.Api.get_current_weather(33.6845673, -117.8265049)
 
-      assert weather.type == "rain_showers"
-      assert weather.temperature == 17.77777777777783
+      assert weather.type == "Partly Cloudy"
+      assert weather.temperature == 55
     end
   end
 end
