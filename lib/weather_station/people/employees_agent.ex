@@ -22,7 +22,9 @@ defmodule WeatherStation.People.EmployeesAgent do
   defp fetch_people do
     @dock_yard_api.get_employees()
     |> Enum.filter(fn person ->
-      person.deactivated == false && (person.lat != nil && person.long != nil)
+      person.deactivated == false &&
+        (person.lat != nil && person.long != nil) &&
+        person.image_url != nil
     end)
   end
 end

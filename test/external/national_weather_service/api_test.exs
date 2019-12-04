@@ -7,7 +7,7 @@ defmodule External.NationalWeatherService.ApiTest do
     External.NationalWeatherService.Api.start()
 
     test "fetches forecasts for geo-coordinates" do
-      forecasts = External.NationalWeatherService.Api.get_forecasts(39.7456,-97.0892)
+      forecasts = External.NationalWeatherService.Api.get_forecasts(39.7456, -97.0892)
 
       [forecast = %{} | _] = forecasts
 

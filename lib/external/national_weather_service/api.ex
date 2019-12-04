@@ -41,6 +41,9 @@ defmodule External.NationalWeatherService.Api do
 
     weather_response = HTTPoison.get!(weather_url)
 
-    JsonWeather.translate(Jason.decode!(weather_response.body)["properties"]["periods"] |> List.first())
+    JsonWeather.translate(
+      Jason.decode!(weather_response.body)["properties"]["periods"]
+      |> List.first()
+    )
   end
 end

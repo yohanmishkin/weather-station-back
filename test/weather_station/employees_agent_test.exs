@@ -51,12 +51,30 @@ defmodule WeatherStation.People.EmployeesAgentTest do
     assert length(people) == 1
   end
 
+  test "excludes out employees without headshots" do
+    External.DockYard.ApiMock
+    |> expect(:get_employees, fn ->
+      [
+        create_person(%{}),
+        create_person(%{image_url: nil}),
+        create_person(%{image_url: nil})
+      ]
+    end)
+
+    {:ok, _pid} = WeatherStation.People.EmployeesAgent.start_link([])
+
+    people = WeatherStation.People.EmployeesAgent.get_people()
+
+    assert length(people) == 1
+  end
+
   defp create_person(attrs) do
     Map.merge(
       %Person{
         :id => "person1234",
         :name => "nancy",
         :deactivated => false,
+        :image_url => 'www.hi.com',
         :lat => 456,
         :long => 123
       },

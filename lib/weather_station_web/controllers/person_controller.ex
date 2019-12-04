@@ -2,7 +2,6 @@ defmodule WeatherStationWeb.PersonController do
   use WeatherStationWeb, :controller
 
   alias WeatherStation.People
-  alias WeatherStation.People.Person
 
   action_fallback WeatherStationWeb.FallbackController
 
