@@ -4,6 +4,7 @@ defmodule WeatherStation.Weather do
   """
 
   @weather_api Application.get_env(:weather_station, :weather_api)
+  @weather_cache Application.get_env(:weather_station, :weather_cache)
 
   @doc """
   Returns the list of forecasts for a set of geo-coordinates
@@ -15,7 +16,15 @@ defmodule WeatherStation.Weather do
 
   """
   def get_forecasts(lat, long) do
-    @weather_api.get_forecasts(lat, long)
+    case @weather_cache.get_forecasts(lat, long) do
+      {:ok, forecasts} ->
+        forecasts
+
+      {:not_found, _error} ->
+        api_forecast = @weather_api.get_forecasts(lat, long)
+        @weather_cache.put_forecasts(lat, long, api_forecast)
+        api_forecast
+    end
   end
 
   @doc """
@@ -28,6 +37,14 @@ defmodule WeatherStation.Weather do
 
   """
   def get_current_weather(lat, long) do
-    @weather_api.get_current_weather(lat, long)
+    case @weather_cache.get_current_weather(lat, long) do
+      {:ok, weather} ->
+        weather
+
+      {:not_found, _error} ->
+        api_weather = @weather_api.get_current_weather(lat, long)
+        @weather_cache.put_current_weather(lat, long, api_weather)
+        api_weather
+    end
   end
 end

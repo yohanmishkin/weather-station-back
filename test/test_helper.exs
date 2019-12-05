@@ -1,5 +1,6 @@
 Mox.defmock(WeatherStation.People.RolodexMock, for: WeatherStation.People.Rolodex)
 Mox.defmock(External.DockYard.ApiMock, for: External.DockYard.Api)
 Mox.defmock(WeatherStation.Weather.ApiMock, for: WeatherStation.Weather.Api)
+Mox.defmock(WeatherStation.Weather.CacheMock, for: WeatherStation.Weather.Cache)
 ExUnit.start()
 ExUnit.configure(exclude: [:external])

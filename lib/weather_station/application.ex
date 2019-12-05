@@ -9,7 +9,7 @@ defmodule WeatherStation.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      WeatherStationWeb.Endpoint,
+      WeatherStationWeb.Endpoint
       # Starts a worker by calling: WeatherStation.Worker.start_link(arg)
       # {WeatherStation.Worker, arg},
       # WeatherStation.People.EmployeesAgent

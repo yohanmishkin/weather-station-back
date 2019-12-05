@@ -34,7 +34,7 @@ defmodule WeatherStation.People.EmployeesAgentTest do
     assert length(people) == 2
   end
 
-  test "excludes out employees without locations" do
+  test "excludes employees without locations" do
     External.DockYard.ApiMock
     |> expect(:get_employees, fn ->
       [
@@ -51,7 +51,7 @@ defmodule WeatherStation.People.EmployeesAgentTest do
     assert length(people) == 1
   end
 
-  test "excludes out employees without headshots" do
+  test "excludes employees without headshots" do
     External.DockYard.ApiMock
     |> expect(:get_employees, fn ->
       [
