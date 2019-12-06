@@ -21,7 +21,7 @@ defmodule WeatherStation.Weather.CacheAgentTest do
 
     {:ok, _pid} =
       WeatherStation.Weather.CacheAgent.start_link(%{
-        "#{lat}-#{long}-forecasts" => %{
+        String.to_atom("#{lat}-#{long}-forecasts") => %{
           :value => [%{:period => "tomorrow", :short_description => "sunny"}],
           :expiration => ten_minutes_ago
         }
@@ -36,7 +36,7 @@ defmodule WeatherStation.Weather.CacheAgentTest do
 
     {:ok, _pid} =
       WeatherStation.Weather.CacheAgent.start_link(%{
-        "#{lat}-#{long}-forecasts" => %{
+        String.to_atom("#{lat}-#{long}-forecasts") => %{
           :value => [%{:period => "tomorrow", :short_description => "sunny"}],
           :expiration => DateTime.utc_now() |> DateTime.add(3600, :second)
         }
@@ -67,7 +67,7 @@ defmodule WeatherStation.Weather.CacheAgentTest do
 
   test "weather cache miss" do
     {:ok, _pid} = WeatherStation.Weather.CacheAgent.start_link(%{})
-    {:not_found, _} = WeatherStation.Weather.CacheAgent.get_weather(1234, 1234)
+    {:not_found, _} = WeatherStation.Weather.CacheAgent.get_current_weather(1234, 1234)
   end
 
   test "weather cache expired" do
@@ -78,13 +78,13 @@ defmodule WeatherStation.Weather.CacheAgentTest do
 
     {:ok, _pid} =
       WeatherStation.Weather.CacheAgent.start_link(%{
-        "#{lat}-#{long}-weather" => %{
+        String.to_atom("#{lat}-#{long}-weather") => %{
           :value => %{:type => "sunny", :temperature => 75},
           :expiration => ten_minutes_ago
         }
       })
 
-    {:expired, _} = WeatherStation.Weather.CacheAgent.get_weather(lat, long)
+    {:expired, _} = WeatherStation.Weather.CacheAgent.get_current_weather(lat, long)
   end
 
   test "weather cache hit" do
@@ -93,13 +93,13 @@ defmodule WeatherStation.Weather.CacheAgentTest do
 
     {:ok, _pid} =
       WeatherStation.Weather.CacheAgent.start_link(%{
-        "#{lat}-#{long}-weather" => %{
+        String.to_atom("#{lat}-#{long}-weather") => %{
           :value => %{:type => "sunny", :temperature => 75},
           :expiration => DateTime.utc_now() |> DateTime.add(3600, :second)
         }
       })
 
-    {:ok, weather} = WeatherStation.Weather.CacheAgent.get_weather(lat, long)
+    {:ok, weather} = WeatherStation.Weather.CacheAgent.get_current_weather(lat, long)
 
     assert weather.type == "sunny"
     assert weather.temperature == 75
@@ -112,11 +112,11 @@ defmodule WeatherStation.Weather.CacheAgentTest do
     {:ok, _pid} = WeatherStation.Weather.CacheAgent.start_link(%{})
 
     :ok =
-      WeatherStation.Weather.CacheAgent.put_weather(lat, long, %{
+      WeatherStation.Weather.CacheAgent.put_current_weather(lat, long, %{
         :period => "tomorrow",
         :short_description => "sunny"
       })
 
-    {:ok, weather} = WeatherStation.Weather.CacheAgent.get_weather(lat, long)
+    {:ok, weather} = WeatherStation.Weather.CacheAgent.get_current_weather(lat, long)
   end
 end

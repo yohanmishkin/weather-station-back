@@ -21,6 +21,12 @@ defmodule WeatherStationWeb.ForecastControllerTest do
         ]
       end)
 
+      WeatherStation.Weather.CacheMock
+      |> expect(:get_forecasts, fn _, __ -> {:not_found, %{:message => 'not in cache'}} end)
+
+      WeatherStation.Weather.CacheMock
+      |> expect(:put_forecasts, fn _, __, ___ -> nil end)
+
       conn = get(conn, "/api/forecast?lat=#{lat}&long=#{long}")
 
       response = json_response(conn, 200)

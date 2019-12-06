@@ -24,7 +24,7 @@ config :phoenix, :json_library, Jason
 
 config :weather_station, :dock_yard_api, External.DockYard.Api.Http
 config :weather_station, :weather_api, External.NationalWeatherService.Api
-# config :weather_station, :weather_cache, External.Weather.CacheAgent
+config :weather_station, :weather_cache, WeatherStation.Weather.CacheAgent
 config :weather_station, :rolodex, WeatherStation.People.EmployeesAgent
 
 # Import environment specific config. This must remain at the bottom
