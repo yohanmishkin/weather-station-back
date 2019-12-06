@@ -13,13 +13,33 @@ defmodule WeatherStation.Weather.CacheAgentTest do
     {:not_found, _} = WeatherStation.Weather.CacheAgent.get_forecasts(1234, 1234)
   end
 
+  test "forecast cache expired" do
+    lat = 1234
+    long = 1234
+
+    ten_minutes_ago = DateTime.utc_now() |> DateTime.add(-600, :second)
+
+    {:ok, _pid} =
+      WeatherStation.Weather.CacheAgent.start_link(%{
+        "#{lat}-#{long}-forecasts" => %{
+          :value => [%{:period => "tomorrow", :short_description => "sunny"}],
+          :expiration => ten_minutes_ago
+        }
+      })
+
+    {:expired, _} = WeatherStation.Weather.CacheAgent.get_forecasts(lat, long)
+  end
+
   test "forecast cache hit" do
     lat = 1234
     long = 1234
 
     {:ok, _pid} =
       WeatherStation.Weather.CacheAgent.start_link(%{
-        "#{lat}-#{long}-forecasts" => [%{:period => "tomorrow", :short_description => "sunny"}]
+        "#{lat}-#{long}-forecasts" => %{
+          :value => [%{:period => "tomorrow", :short_description => "sunny"}],
+          :expiration => DateTime.utc_now() |> DateTime.add(3600, :second)
+        }
       })
 
     {:ok, forecasts} = WeatherStation.Weather.CacheAgent.get_forecasts(lat, long)
@@ -50,20 +70,39 @@ defmodule WeatherStation.Weather.CacheAgentTest do
     {:not_found, _} = WeatherStation.Weather.CacheAgent.get_weather(1234, 1234)
   end
 
+  test "weather cache expired" do
+    lat = 1234
+    long = 1234
+
+    ten_minutes_ago = DateTime.utc_now() |> DateTime.add(-600, :second)
+
+    {:ok, _pid} =
+      WeatherStation.Weather.CacheAgent.start_link(%{
+        "#{lat}-#{long}-weather" => %{
+          :value => %{:type => "sunny", :temperature => 75},
+          :expiration => ten_minutes_ago
+        }
+      })
+
+    {:expired, _} = WeatherStation.Weather.CacheAgent.get_weather(lat, long)
+  end
+
   test "weather cache hit" do
     lat = 1234
     long = 1234
 
     {:ok, _pid} =
       WeatherStation.Weather.CacheAgent.start_link(%{
-        "#{lat}-#{long}-weather" => [%{:period => "tomorrow", :short_description => "sunny"}]
+        "#{lat}-#{long}-weather" => %{
+          :value => %{:type => "sunny", :temperature => 75},
+          :expiration => DateTime.utc_now() |> DateTime.add(3600, :second)
+        }
       })
 
     {:ok, weather} = WeatherStation.Weather.CacheAgent.get_weather(lat, long)
 
-    forecast = List.first(weather)
-    assert forecast.period == "tomorrow"
-    assert forecast.short_description == "sunny"
+    assert weather.type == "sunny"
+    assert weather.temperature == 75
   end
 
   test "fill weather cache" do
@@ -73,9 +112,10 @@ defmodule WeatherStation.Weather.CacheAgentTest do
     {:ok, _pid} = WeatherStation.Weather.CacheAgent.start_link(%{})
 
     :ok =
-      WeatherStation.Weather.CacheAgent.put_weather(lat, long, [
-        %{:period => "tomorrow", :short_description => "sunny"}
-      ])
+      WeatherStation.Weather.CacheAgent.put_weather(lat, long, %{
+        :period => "tomorrow",
+        :short_description => "sunny"
+      })
 
     {:ok, weather} = WeatherStation.Weather.CacheAgent.get_weather(lat, long)
   end
