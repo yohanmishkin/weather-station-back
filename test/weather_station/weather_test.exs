@@ -5,8 +5,6 @@ defmodule WeatherStation.WeatherTest do
 
   setup :verify_on_exit!
 
-  @moduletag :qwer
-
   test "weather is served from cache if available" do
     WeatherStation.Weather.CacheMock
     |> expect(:get_current_weather, fn _, __ ->

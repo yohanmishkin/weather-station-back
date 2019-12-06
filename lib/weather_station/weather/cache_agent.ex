@@ -14,38 +14,29 @@ defmodule WeatherStation.Weather.CacheAgent do
 
   @impl Cache
   def get_forecasts(lat, long) do
-    Agent.get(__MODULE__, fn cache ->
-      case cache[String.to_atom("#{lat}-#{long}-forecasts")] do
-        nil ->
-          {:not_found, "#{lat}-#{long}-forecasts"}
-
-        hit ->
-          case DateTime.compare(hit.expiration, DateTime.utc_now()) do
-            :lt -> {:expired, hit.expiration}
-            _ -> {:ok, hit.value}
-          end
-      end
-    end)
-  end
-
-  @impl Cache
-  def put_forecasts(lat, long, forecasts) do
-    this_time_tomorrow = DateTime.utc_now() |> DateTime.add(@default_expiration, :second)
-
-    Agent.update(__MODULE__, fn cache ->
-      Map.put(cache, String.to_atom("#{lat}-#{long}-forecasts"), %{
-        :value => forecasts,
-        :expiration => this_time_tomorrow
-      })
-    end)
+    get("#{lat}-#{long}-forecasts")
   end
 
   @impl Cache
   def get_current_weather(lat, long) do
+    get("#{lat}-#{long}-weather")
+  end
+
+  @impl Cache
+  def put_current_weather(lat, long, weather) do
+    put(lat, long, "#{lat}-#{long}-weather", weather)
+  end
+
+  @impl Cache
+  def put_forecasts(lat, long, forecasts) do
+    put(lat, long, "#{lat}-#{long}-forecasts", forecasts)
+  end
+
+  defp get(key) do
     Agent.get(__MODULE__, fn cache ->
-      case cache[String.to_atom("#{lat}-#{long}-weather")] do
+      case cache[String.to_atom(key)] do
         nil ->
-          {:not_found, "#{lat}-#{long}-weather"}
+          {:not_found, key}
 
         hit ->
           case DateTime.compare(hit.expiration, DateTime.utc_now()) do
@@ -56,13 +47,12 @@ defmodule WeatherStation.Weather.CacheAgent do
     end)
   end
 
-  @impl Cache
-  def put_current_weather(lat, long, weather) do
+  defp put(lat, long, key, data) do
     this_time_tomorrow = DateTime.utc_now() |> DateTime.add(@default_expiration, :second)
 
     Agent.update(__MODULE__, fn cache ->
-      Map.put(cache, String.to_atom("#{lat}-#{long}-weather"), %{
-        :value => weather,
+      Map.put(cache, String.to_atom(key), %{
+        :value => data,
         :expiration => this_time_tomorrow
       })
     end)

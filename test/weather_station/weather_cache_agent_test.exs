@@ -6,8 +6,6 @@ defmodule WeatherStation.Weather.CacheAgentTest do
   setup :set_mox_global
   setup :verify_on_exit!
 
-  @moduletag :qwer
-
   test "forecast cache miss" do
     {:ok, _pid} = WeatherStation.Weather.CacheAgent.start_link(%{})
     {:not_found, _} = WeatherStation.Weather.CacheAgent.get_forecasts(1234, 1234)
