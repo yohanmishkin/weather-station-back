@@ -12,8 +12,8 @@ defmodule WeatherStation.Application do
       WeatherStationWeb.Endpoint,
       # Starts a worker by calling: WeatherStation.Worker.start_link(arg)
       # {WeatherStation.Worker, arg},
-      # WeatherStation.People.EmployeesAgent,
-      # {WeatherStation.Weather.CacheAgent, %{}}
+      WeatherStation.People.EmployeesAgent,
+      {WeatherStation.Weather.CacheAgent, %{}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
