@@ -20,10 +20,11 @@ defmodule WeatherStation.Weather do
       {:ok, forecasts} ->
         forecasts
 
+      {:expired, _expiration} ->
+        fill_forecast_cache(lat, long)
+
       {:not_found, _error} ->
-        api_forecast = @weather_api.get_forecasts(lat, long)
-        @weather_cache.put_forecasts(lat, long, api_forecast)
-        api_forecast
+        fill_forecast_cache(lat, long)
     end
   end
 
@@ -41,10 +42,23 @@ defmodule WeatherStation.Weather do
       {:ok, weather} ->
         weather
 
+      {:expired, _expiration} ->
+        fill_weather_cache(lat, long)
+
       {:not_found, _error} ->
-        api_weather = @weather_api.get_current_weather(lat, long)
-        @weather_cache.put_current_weather(lat, long, api_weather)
-        api_weather
+        fill_weather_cache(lat, long)
     end
+  end
+
+  defp fill_forecast_cache(lat, long) do
+    api_forecast = @weather_api.get_forecasts(lat, long)
+    @weather_cache.put_forecasts(lat, long, api_forecast)
+    api_forecast
+  end
+
+  defp fill_weather_cache(lat, long) do
+    api_weather = @weather_api.get_current_weather(lat, long)
+    @weather_cache.put_current_weather(lat, long, api_weather)
+    api_weather
   end
 end
