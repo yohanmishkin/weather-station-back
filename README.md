@@ -1,3 +1,9 @@
+This project was meant to be a quick and dirty example of some Elixir/Phoenix learnings.
+
+Live site: https://weatherstation.xyz/
+
+Frontend repo: https://github.com/yohanmishkin/weather-station-front/
+
 # WeatherStation
 
 To start your Phoenix server:
